@@ -43,7 +43,7 @@ export async function fetchUserFittings(token) {
     const authToken = token;
 
     let response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/consumer/fittings`,
+      `${import.meta.env.VITE_API_URL}/api/admin/fittings`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

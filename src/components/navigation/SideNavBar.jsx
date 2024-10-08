@@ -55,15 +55,8 @@ export default function SideNavBar({ collapsed, toggleCollapsed }) {
   const admin_items = [
     getItem("Home", "1", null, null, null, "/home"),
     getItem("Getting Started", "2", null, null, null, "/get-started-admin"),
-    getItem(
-      "Fitting Requests",
-      "3",
-      null,
-      null,
-      null,
-      "/schedule-swig-analysis"
-    ),
-    getItem("Fitting Tasks", "4", null, null, null, "/schedule-fitting"),
+    getItem("Fitting Requests", "3", null, null, null, "/fitting-requests"),
+    getItem("Fitting Tasks", "4", null, null, null, "/fitting-tasks"),
     getItem("Fitting Schedule", "5", null, null, null, "/fitting-progress"),
     getItem("Fitting History", "6", null, null, null, "/account-history"),
     getItem("Customer Profiles", "7", null, null, null, "/user-profiles"),
