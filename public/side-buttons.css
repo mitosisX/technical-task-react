@@ -1,0 +1,41 @@
+html,
+body {
+    overflow-x: hidden;
+}
+
+#mySidenav a {
+    position: absolute;
+    right: -115px;
+    transition: 0.3s;
+    padding: 15px;
+    width: 150px;
+    text-decoration: none;
+    font-size: 20px;
+    float: right;
+    color: white;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#mySidenav a:hover {
+    right: 0;
+}
+
+#about {
+    top: 20px;
+    background-color: #04AA6D;
+}
+
+#blog {
+    top: 80px;
+    background-color: #2196F3;
+}
+
+#projects {
+    top: 140px;
+    background-color: orange;
+}
+#dis {
+    top: 160px;
+    background-color: red;
+}
+
