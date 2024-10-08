@@ -101,6 +101,49 @@ export async function fetchMyProfile(token) {
   }
 }
 
+export async function fetchGettingStartedInfo(token) {
+  try {
+    const authToken = token;
+
+    let response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/api/admin/getting-started-info`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+
+    return error;
+  }
+}
+
+export async function updateGettingStartedInfo(content, token) {
+  try {
+    const authToken = token;
+
+    let response = await axios.put(
+      `${import.meta.env.VITE_API_URL}/api/admin/getting-started-info`,
+      content,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+
+    return error;
+  }
+}
+
 export async function scheduleFitting(data, token) {
   try {
     const authToken = token;
@@ -119,6 +162,6 @@ export async function scheduleFitting(data, token) {
   } catch (error) {
     console.log(error);
 
-    // return error;
+    return error;
   }
 }
