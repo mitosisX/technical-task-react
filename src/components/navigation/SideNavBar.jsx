@@ -54,7 +54,7 @@ export default function SideNavBar({ collapsed, toggleCollapsed }) {
 
   const admin_items = [
     getItem("Home", "1", null, null, null, "/home"),
-    getItem("Getting Started", "2", null, null, null, "/getting-started"),
+    getItem("Getting Started", "2", null, null, null, "/get-started-admin"),
     getItem(
       "Fitting Requests",
       "3",
@@ -114,7 +114,7 @@ export default function SideNavBar({ collapsed, toggleCollapsed }) {
             inlineCollapsed={collapsed}
             style={menuStyle}
           >
-            {(user.is_staff ? admin_items : consumer_items).map(
+            {(user.is_admin ? admin_items : consumer_items).map(
               (item, index) => {
                 return (
                   <AntMenu.Item
