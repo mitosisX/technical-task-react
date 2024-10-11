@@ -12,6 +12,7 @@ import ScheduleFitting from "../components/user/ScheduleFitting";
 import UserProfiles from "../components/admin/UserProfiles";
 import GettingStartedAdmin from "../components/admin/GettingStartedAdmin";
 import FittingRequests from "../components/admin/FittingRequests";
+import FittingUpdate from "../components/admin/FittingUpdate";
 
 const AppRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const AppRoutes = () => {
       <Route path="/user-profiles" element={<UserProfiles />} />
       <Route path="/get-started-admin" element={<GettingStartedAdmin />} />
       <Route path="/fitting-requests" element={<FittingRequests />} />
+      <Route path="/update-fitting" element={<FittingUpdate />} />
     </Routes>
   );
 };

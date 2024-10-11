@@ -59,6 +59,28 @@ export async function fetchUserFittings(token) {
   }
 }
 
+export async function setFittingStatus(id, status, token) {
+  try {
+    const authToken = token;
+
+    let response = await axios.patch(
+      `${import.meta.env.VITE_API_URL}/api/admin/fittings/${id}`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+
+    return error;
+  }
+}
+
 export async function fetchUserProfiles(token) {
   try {
     const authToken = token;
