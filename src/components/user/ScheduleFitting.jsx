@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Layout,
   Typography,
@@ -42,10 +42,11 @@ const ScheduleFitting = () => {
     const date = dateTime.format().split("T")[0];
 
     const sendData = {
-      user: user.id,
-      date,
+      type: "fitting",
+      user_id: user.user_id,
+      scheduled_date: date,
       comments: values.comments,
-      time: userTime,
+      scheduled_time: userTime,
     };
 
     try {
@@ -90,10 +91,10 @@ const ScheduleFitting = () => {
               You can also add any comments or special requests.
             </Paragraph>
             <Form layout="vertical" onFinish={handleSubmit}>
-              <Form.Item name="date" label="Select Date" required>
+              <Form.Item name="scheduled_date" label="Select Date" required>
                 <DatePicker onChange={handleDateChange} />
               </Form.Item>
-              <Form.Item name="time" label="Select Time" required>
+              <Form.Item name="scheduled_time" label="Select Time" required>
                 <TimePicker onChange={handleTimeChange} format="HH:mm:ss" />
               </Form.Item>
               <Form.Item name="comments" label="Comments">

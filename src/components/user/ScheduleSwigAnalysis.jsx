@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Layout,
   Typography,
@@ -8,30 +8,62 @@ import {
   TimePicker,
   Input,
   Card,
+  notification,
 } from "antd";
-import moment from "moment";
 import MainComponent from "../mainComponent";
+import { scheduleSwigAnalysis } from "../../backend_handler/endpointsController";
+import { useSelector } from "react-redux";
 
 const { Header, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const ScheduleSwingAnalysis = () => {
+  const { user, token } = useSelector((state) => state);
+
   const [dateTime, setDateTime] = useState(null);
+  const [userTime, setUserTime] = useState(null);
   const [comments, setComments] = useState("");
 
   const handleDateChange = (date) => {
     setDateTime(date);
   };
 
+  const handleTimeChange = (time, timeString) => {
+    setUserTime(timeString);
+  };
+
   const handleCommentsChange = (e) => {
     setComments(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // Here you would typically handle the form submission
-    console.log("Scheduled Date & Time:", dateTime.format());
-    console.log("Comments:", comments);
-    alert("Your swing analysis has been scheduled!");
+  const handleSubmit = async (values) => {
+    const scheduled_date = dateTime.format().split("T")[0];
+
+    const sendData = {
+      type: "swig_analysis",
+      user_id: user.user_id,
+      scheduled_date,
+      comments: comments,
+      scheduled_time: userTime,
+    };
+
+    try {
+      const response = await scheduleSwigAnalysis(sendData, token);
+
+      if (response.status === 200) {
+        notification.success({
+          message: "Success",
+          threshold: 3,
+          description: "Swig analysis scheduled successfuly!",
+        });
+      }
+    } catch {
+      notification.error({
+        message: "Error",
+        threshold: 3,
+        description: "Swig analysis scheduling failed!",
+      });
+    }
   };
 
   return (
@@ -61,11 +93,7 @@ const ScheduleSwingAnalysis = () => {
                 <DatePicker onChange={handleDateChange} />
               </Form.Item>
               <Form.Item label="Select Time" required>
-                <TimePicker
-                  onChange={(time) => setDateTime(time)}
-                  format="HH:mm"
-                  disabled={!dateTime}
-                />
+                <TimePicker onChange={handleTimeChange} format="HH:mm:ss" />
               </Form.Item>
               <Form.Item label="Comments">
                 <Input.TextArea

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Layout,
   Typography,
@@ -7,18 +7,16 @@ import {
   Card,
   Tag,
   Modal,
-  Input,
   Select,
   notification,
 } from "antd";
 import { useSelector } from "react-redux";
 import MainComponent from "../mainComponent";
 import {
-  fetchUserFittings,
+  fetchUserFittingsAdmin,
   setFittingStatus,
 } from "../../backend_handler/endpointsController";
-import Home from "../user/Home";
-import { useNavigate } from "react-router-dom";
+import { humanizeDate } from "../../utils/date";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -30,8 +28,6 @@ const FittingRequests = () => {
   const [currFittingID, setCurrFittingID] = useState(null);
   const [fittingTask, setFittingTask] = useState(null);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     fetchFittings();
   }, []);
@@ -41,10 +37,10 @@ const FittingRequests = () => {
   };
 
   const fetchFittings = async () => {
-    const response = await fetchUserFittings(token);
+    const response = await fetchUserFittingsAdmin(token);
     if (response.status === 200) {
-      console.log(response.data);
-      setUserFittings(response.data);
+      console.log(response.data.data);
+      setUserFittings(response.data.data);
     }
   };
 
@@ -66,7 +62,6 @@ const FittingRequests = () => {
         description: "Fitting task completed! Reload page",
       });
     } else {
-      console.log("$$$$$$$$$$$$$$$$$$$$");
     }
   };
 
@@ -90,15 +85,14 @@ const FittingRequests = () => {
             {userFittings.map((fitting) => (
               <Col span={8} key={fitting.id} style={{ marginBottom: "20px" }}>
                 <Card
-                  title={`Date: ${fitting.date}`}
+                  title={`Date: ${humanizeDate(fitting.scheduled_date)}`}
                   bordered
-                  onClick={() => handleCardClick(fitting.id)}
+                  onClick={() => handleCardClick(fitting.fitting_id)}
                 >
                   <p>{fitting.comments}</p>
-                  <p>{fitting.time}</p>
-                  <p>{fitting.user.profile.username || "----"}</p>
-                  <p>{fitting.user.profile.email || "----"}</p>
-                  <p>{fitting.user.profile.phone || "-----"}</p>
+                  <p>{fitting.name || "----"}</p>
+                  <p>{fitting.email || "----"}</p>
+                  <p>{fitting.phone || "-----"}</p>
                   <Tag color={"green"}>{fitting.status}</Tag>
                 </Card>
               </Col>

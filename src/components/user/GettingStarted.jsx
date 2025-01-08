@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Layout, Typography, Button, List, Card } from "antd";
+import { Layout, Typography, Card } from "antd";
 import MainComponent from "../mainComponent";
 import { useSelector } from "react-redux";
 import { fetchGettingStartedInfo } from "../../backend_handler/endpointsController";
@@ -19,7 +19,7 @@ const GettingStarted = () => {
   const fetchGettingStarted = async () => {
     const response = await fetchGettingStartedInfo(token);
     if (response.status === 200) {
-      setInfo(response.data.content);
+      setInfo(response.data.data.content);
     }
   };
 

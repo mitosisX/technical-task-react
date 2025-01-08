@@ -10,7 +10,6 @@ import {
 const { Header } = Layout;
 import { useState } from "react";
 import { UserOutlined, SettingOutlined } from "@ant-design/icons";
-import { logout } from "../../backend_handler/endpointsController";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const { Item } = Menu;
@@ -97,6 +96,7 @@ export default function TopNavBar({ collapsed, toggleCollapsed }) {
       >
         <div style={{ display: "flex", alignItems: "center" }}>
           {/* Spacer */}
+          <Header style={{ background: "#fff" }}>Get 50% OFF golf clubs</Header>
         </div>
         <div
           style={{ display: "flex", alignItems: "center", marginRight: "20px" }}

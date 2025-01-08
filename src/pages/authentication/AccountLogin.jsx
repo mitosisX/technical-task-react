@@ -32,10 +32,10 @@ const AccountLogin = () => {
     setLoading(true);
 
     try {
-      const response = await loginUser(values.username, values.password);
+      const response = await loginUser(values.email, values.password);
 
       if (response.status === 200) {
-        const token = response.data.access;
+        const token = response.data.access_token;
         const user = response.data.user;
         openSuccessNotificationWithIcon("success");
         dispatch(setLogin({ user: user, token: token }));
@@ -88,14 +88,15 @@ const AccountLogin = () => {
                   }}
                 ></div>
                 <Form.Item
-                  name="username"
+                  name="email"
                   rules={[
-                    { required: true, message: "Please input your username!" },
+                    { required: true, message: "Please input your email!" },
                   ]}
                 >
                   <Input
+                    type="email"
                     prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="Enter your username"
+                    placeholder="Enter your email"
                     style={{ padding: "15px", marginBottom: "15px" }}
                   />
                 </Form.Item>

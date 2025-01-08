@@ -1,4 +1,3 @@
-import React from "react";
 import { Layout, Typography, Button, Row, Col } from "antd";
 import MainComponent from "../mainComponent";
 import { Link } from "react-router-dom";

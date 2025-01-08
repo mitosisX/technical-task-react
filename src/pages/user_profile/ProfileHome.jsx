@@ -39,7 +39,6 @@ const ProfileHome = () => {
         {/* Divider */}
         <Divider />
 
-        {/* Medical Information */}
         <Row gutter={[16, 16]} style={{ marginBottom: "20px" }}>
           <Col span={12}>
             <Card title="Personal Information">

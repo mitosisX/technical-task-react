@@ -1,19 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Layout, Menu as AntMenu } from "antd";
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  FileSearchOutlined,
-  MedicineBoxOutlined,
-  PieChartOutlined,
-  ScheduleOutlined,
-  SolutionOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 
 const { Sider } = Layout;
 
@@ -56,9 +45,9 @@ export default function SideNavBar({ collapsed, toggleCollapsed }) {
     getItem("Home", "1", null, null, null, "/home"),
     getItem("Getting Started", "2", null, null, null, "/get-started-admin"),
     getItem("Fitting Requests", "3", null, null, null, "/fitting-requests"),
-    getItem("Fitting Tasks", "4", null, null, null, "/fitting-tasks"),
-    getItem("Fitting Schedule", "5", null, null, null, "/fitting-progress"),
-    getItem("Fitting History", "6", null, null, null, "/account-history"),
+    // getItem("Fitting Tasks", "4", null, null, null, "/fitting-tasks"),
+    getItem("Fitting Schedule", "5", null, null, null, "/fitting-schedule"),
+    getItem("Fitting History", "6", null, null, null, "/fitting-history"),
     getItem("Customer Profiles", "7", null, null, null, "/user-profiles"),
   ];
 
@@ -107,7 +96,7 @@ export default function SideNavBar({ collapsed, toggleCollapsed }) {
             inlineCollapsed={collapsed}
             style={menuStyle}
           >
-            {(user.is_admin ? admin_items : consumer_items).map(
+            {(user.role == "admin" ? admin_items : consumer_items).map(
               (item, index) => {
                 return (
                   <AntMenu.Item

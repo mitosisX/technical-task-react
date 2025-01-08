@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import {
-  Layout,
-  Typography,
-  Button,
-  List,
-  Card,
-  Input,
-  Form,
-  notification,
-} from "antd";
+import { Layout, Typography, Button, Card, Form, notification } from "antd";
 import MainComponent from "../mainComponent";
 import TextArea from "antd/es/input/TextArea";
 import { useSelector } from "react-redux";
@@ -33,7 +24,7 @@ const GettingStartedAdmin = () => {
   const fetchGettingStarted = async () => {
     const response = await fetchGettingStartedInfo(token);
     if (response.status === 200) {
-      form.setFieldsValue({ content: response.data.content });
+      form.setFieldsValue({ content: response.data.data.content });
     }
   };
 

@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Layout, Typography, Row, Col, Card, Tag } from "antd";
 import { useSelector } from "react-redux";
 import MainComponent from "../mainComponent";
-import { fetchUserFittings } from "../../backend_handler/endpointsController";
+import { fetchUserFittingsAdmin } from "../../backend_handler/endpointsController";
 import { humanizeDate } from "../../utils/date";
-import { useNavigate } from "react-router-dom";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-const AccountHistory = () => {
-  const navigate = useNavigate();
-
+const FittingHistory = () => {
   const { user, token } = useSelector((state) => state);
   const [userFittings, setUserFittings] = useState([]);
 
@@ -20,24 +17,11 @@ const AccountHistory = () => {
   }, []);
 
   const fetchFittings = async () => {
-    const response = await fetchUserFittings(user.user_id, token);
+    const response = await fetchUserFittingsAdmin(user.user_id, token);
     if (response.status === 200) {
+      console.log(response.data.data);
       setUserFittings(response.data.data);
     }
-  };
-
-  const handleCardClick = (fitting_id, index) => {
-    navigate("/fitting-progress", {
-      state: {
-        fitting_id,
-      },
-    });
-    // const data = profiles[index];
-
-    // form.setFieldsValue(data);
-
-    // setCurrProfileID(id);
-    // setIsSaveReqModalOpen(true);
   };
 
   return (
@@ -52,7 +36,7 @@ const AccountHistory = () => {
           }}
         >
           <Title level={2} style={{ color: "white" }}>
-            Your Fitting History
+            Fitting History
           </Title>
         </Header>
         <Content style={{ padding: "20px" }}>
@@ -62,7 +46,6 @@ const AccountHistory = () => {
                 <Card
                   title={`Fitting for ${humanizeDate(fitting.scheduled_date)}`}
                   bordered
-                  onClick={() => handleCardClick(fitting.fitting_id)}
                 >
                   <p>
                     {fitting.comments}
@@ -84,4 +67,4 @@ const AccountHistory = () => {
   );
 };
 
-export default AccountHistory;
+export default FittingHistory;

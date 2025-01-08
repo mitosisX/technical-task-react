@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Layout, Typography, Form, Input, Button, Select, Card } from "antd";
+import { useEffect, useState } from "react";
+import {
+  Layout,
+  Typography,
+  Form,
+  Input,
+  Button,
+  Card,
+  notification,
+} from "antd";
 import { useSelector } from "react-redux";
 import MainComponent from "../mainComponent";
-import { fetchMyProfile } from "../../backend_handler/endpointsController";
+import {
+  fetchMyProfile,
+  updateMyProfile,
+} from "../../backend_handler/endpointsController";
 import { useForm } from "antd/es/form/Form";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
-const { Option } = Select;
 
 const MyProfile = () => {
   const { user, token } = useSelector((state) => state);
@@ -19,18 +29,32 @@ const MyProfile = () => {
   }, []);
 
   const fetchProfile = async () => {
-    const response = await fetchMyProfile(token);
+    const response = await fetchMyProfile(user.user_id, token);
     if (response.status === 200) {
-      setProfile(response.data[0]);
-      console.log("##### ", response.data[0]);
-      form.setFieldsValue(response.data[0]);
+      const profileData = response.data.data;
+
+      console.log(profileData);
+
+      profileData.email = user.email;
+
+      setProfile(profileData);
+      form.setFieldsValue(response.data.data);
     }
   };
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Profile Updated:", values);
+    values["user_id"] = user.user_id;
     // Here you would typically send the updated values to your API
-    alert("Profile updated successfully!");
+    const response = await updateMyProfile(values, token);
+
+    if (response.status === 200) {
+      notification.success({
+        message: "Success",
+        threshold: 3,
+        description: "Profile updated successfuly!",
+      });
+    }
   };
 
   return (
@@ -53,7 +77,7 @@ const MyProfile = () => {
             <Form form={form} layout="vertical" onFinish={onFinish}>
               <Form.Item
                 label="Name"
-                name="username"
+                name="name"
                 rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <Input placeholder="Enter your name" value={"Hello"} />
